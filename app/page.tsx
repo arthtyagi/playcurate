@@ -2,10 +2,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { YouTubeTabs } from "@/components/youtube-tabs";
 import { Preview } from "@/components/preview";
+import { MusicPlayer } from "@/components/music-player";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-5xl mx-auto space-y-16">
           {/* Header */}
@@ -35,6 +36,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <MusicPlayer />
     </div>
   );
 }
