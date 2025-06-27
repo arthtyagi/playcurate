@@ -1,65 +1,39 @@
 "use client"
 
 import { useAtom } from "jotai"
-import { youtubeVideoAtom, isAudioOnlyAtom } from "@/lib/store"
-import { YouTubeEmbed } from "@next/third-parties/google"
-import { Button } from "@/components/ui/button"
-import { Volume2, Video } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { youtubeVideoAtom } from "@/lib/store"
+import { AspectRatio } from "@/components/ui/aspect-ratio"
 
 export function Preview() {
   const [youtubeVideo] = useAtom(youtubeVideoAtom)
-  const [isAudioOnly, setIsAudioOnly] = useAtom(isAudioOnlyAtom)
 
   if (!youtubeVideo) {
     return (
-      <div className="flex items-center justify-center h-64 bg-muted/20 rounded-lg border-2 border-dashed border-muted-foreground/25">
-        <p className="text-muted-foreground text-center">
-          Paste a YouTube URL to preview
-        </p>
+      <div className="flex items-center justify-center h-80 bg-muted/5 rounded-3xl border border-border/20">
+        <div className="text-center space-y-3">
+          <div className="w-16 h-16 mx-auto bg-muted/10 rounded-2xl flex items-center justify-center">
+            <svg className="w-8 h-8 text-muted-foreground/60" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </div>
+          <p className="text-muted-foreground/80 font-medium">Paste a YouTube URL to preview</p>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="w-full max-w-4xl space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium">Preview</h3>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setIsAudioOnly(!isAudioOnly)}
-          className="flex items-center gap-2"
-        >
-          {isAudioOnly ? <Video className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-          {isAudioOnly ? "Show Video" : "Audio Only"}
-        </Button>
-      </div>
-      
-      <div className={cn(
-        "relative bg-black rounded-lg overflow-hidden",
-        isAudioOnly ? "h-32" : "aspect-video"
-      )}>
-        <YouTubeEmbed
-          videoid={youtubeVideo.videoId}
-          height={isAudioOnly ? 128 : 400}
-          params={isAudioOnly ? "controls=1&modestbranding=1&rel=0&showinfo=0" : "controls=1&modestbranding=1&rel=0"}
-        />
-        
-        {isAudioOnly && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-black/50 to-black/80">
-            <div className="text-center text-white">
-              <Volume2 className="h-12 w-12 mx-auto mb-2 opacity-75" />
-              <p className="text-sm font-medium">Audio Only Mode</p>
-              <p className="text-xs opacity-75">Video hidden for audio focus</p>
-            </div>
-          </div>
-        )}
-      </div>
-      
-      <div className="text-sm text-muted-foreground">
-        <p>Video ID: {youtubeVideo.videoId}</p>
-        <p className="truncate">URL: {youtubeVideo.url}</p>
+    <div className="w-full max-w-4xl mx-auto">
+      <div className="bg-black rounded-3xl overflow-hidden shadow-2xl">
+        <AspectRatio ratio={16 / 9}>
+          <iframe
+            src={`https://www.youtube.com/embed/${youtubeVideo.videoId}?controls=1&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=1&color=white&theme=dark&autohide=1&wmode=transparent`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          />
+        </AspectRatio>
       </div>
     </div>
   )

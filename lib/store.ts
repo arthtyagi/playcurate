@@ -20,7 +20,6 @@ export interface SearchResult {
 }
 
 export const youtubeVideoAtom = atom<YouTubeVideo | null>(null)
-export const isAudioOnlyAtom = atom<boolean>(false)
 export const searchResultsAtom = atom<SearchResult[]>([])
 export const searchQueryAtom = atom<string>("")
 export const isSearchingAtom = atom<boolean>(false) 

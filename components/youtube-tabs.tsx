@@ -11,24 +11,30 @@ export function YouTubeTabs() {
   const searchResults = useAtomValue(searchResultsAtom)
 
   return (
-    <div className="w-full max-w-6xl space-y-6">
+    <div className="w-full max-w-2xl mx-auto">
       <Tabs defaultValue="paste" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="paste">Paste Link</TabsTrigger>
-          <TabsTrigger value="search">Search Videos</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 h-11 rounded-2xl bg-muted/20 p-1">
+          <TabsTrigger 
+            value="paste" 
+            className="rounded-xl text-sm font-medium data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+          >
+            Paste Link
+          </TabsTrigger>
+          <TabsTrigger 
+            value="search" 
+            className="rounded-xl text-sm font-medium data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+          >
+            Search
+          </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="paste" className="space-y-6">
-          <div className="flex flex-col items-center space-y-6">
-            <PasteLink />
-          </div>
+        <TabsContent value="paste" className="mt-8">
+          <PasteLink />
         </TabsContent>
         
-        <TabsContent value="search" className="space-y-6">
-          <div className="flex flex-col items-center space-y-6">
-            <YouTubeSearch />
-            {searchResults.length > 0 && <SearchResults />}
-          </div>
+        <TabsContent value="search" className="mt-8 space-y-6">
+          <YouTubeSearch />
+          {searchResults.length > 0 && <SearchResults />}
         </TabsContent>
       </Tabs>
     </div>
