@@ -27,8 +27,7 @@ export function Preview() {
       <div className="bg-black rounded-3xl overflow-hidden shadow-2xl">
         <AspectRatio ratio={16 / 9}>
           <iframe
-            src={`https://www.youtube.com/embed/${youtubeVideo.videoId}?controls=1&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=1&color=white&theme=dark&autohide=1&wmode=transparent`}
-            frameBorder="0"
+            src={`https://www.youtube.com/embed/${youtubeVideo.videoId}?controls=1&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=1&color=white&theme=dark&autohide=1&wmode=transparent&autoplay=1`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="w-full h-full"
