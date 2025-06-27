@@ -15,24 +15,29 @@ export default function SiteHeader() {
     const pathname = usePathname();
     const isActive = (href: string) => pathname === href;
     return (
-        <header className="flex items-center justify-between p-4">
-            <div className="flex items-center gap-4">
+        <header className="flex items-center justify-center p-4">
+            <div className="flex items-center gap-1 bg-muted/50 rounded-full p-1 border">
                 <Link href="/">
-                    <Button variant="ghost" size="icon">
-                        <p className="text-2xl font-bold">P</p>
+                    <Button variant="ghost" size="sm" className="rounded-full">
+                        <p className="text-lg font-bold">P</p>
                     </Button>
                 </Link>
-            </div>
-            <div className="flex items-center gap-4">
                 {navItems.map((item) => (
                     <Link key={item.href} href={item.href}>
-                        <Button variant="ghost" size="icon" className={cn(isActive(item.href) && "bg-primary text-primary-foreground")}>
+                        <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className={cn(
+                                "rounded-full",
+                                isActive(item.href) && "bg-background text-foreground shadow-sm"
+                            )}
+                        >
                             {item.label}
                         </Button>
                     </Link>
                 ))}
+                <ModeToggle />
             </div>
-            <ModeToggle />
         </header>
     );
 }   
